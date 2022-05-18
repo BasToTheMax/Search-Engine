@@ -40,7 +40,7 @@
     app.set('json spaces', 2);
 
     var c = new Crawler({
-        maxConnections : 10,
+        maxConnections : 1,
         // This will be called for each crawled page
         callback : async function (error, res, done) {
             if(error){
@@ -48,6 +48,7 @@
             }else{
                 var $ = res.$;
                 var siteID = res.options.siteID;
+                var url = res.options.url;
 
                 var siteTitle = $("title").text();
                 var siteDesc = $("meta[name=description]").attr('content');
@@ -65,7 +66,7 @@
                         lastcrawldate: Date.now()
                     });
                 
-                console.log(`Crawled site: ${siteID}`);
+                console.log(`Crawled site: ${url} (${siteID})`);
             }
             done();
         }
@@ -83,7 +84,8 @@
         if ((Date.now() - lastcd) > 30 * 1000) {
             c.queue({
                 uri: url,
-                siteID: site['ID']
+                siteID: site['ID'],
+                url: site['url']
             });
         }
     }, 1000);
