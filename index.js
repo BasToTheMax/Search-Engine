@@ -41,6 +41,7 @@
 
     var c = new Crawler({
         maxConnections : 1,
+        rateLimit: 2000,
         // This will be called for each crawled page
         callback : async function (error, res, done) {
             if(error){
