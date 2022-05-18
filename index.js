@@ -107,7 +107,7 @@
                 await knex('sites')
                     .where('ID', siteID)
                     .update({
-                        name: siteTitle.substring(0, 25),
+                        name: siteTitle.substring(0, 50),
                         description: siteDesc.substring(0, 150),
                         lastcrawldate: Date.now()
                     });
