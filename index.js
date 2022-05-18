@@ -2,6 +2,7 @@
     const express = require('express');
     const config = require('./config.json');
     const chalk = require('chalk');
+    const url = require('url');
 
     var Crawler = require("crawler");
  
@@ -71,6 +72,30 @@
                     siteDesc = $("p").text();
                     // console.log(siteDesc);
                 }
+
+                var links = $('a');
+                $(links).each(async function(i, link){
+                    var newu;
+                    newu = url;
+                    newu = String(newu).replace('https://', '').toString();
+                    // console.log(newu);
+                    if (newu.includes('/')) {
+                        // newu = newu.toString().spit('/')[newu.toString().spit('/').length - 1];
+                    }
+                    const fullurl = new URL($(link).attr('href'), 'https://' + newu);
+                    // console.log(fullurl.toString());
+                    // console.log($(link).attr('href'));
+
+                    await knex('sites').insert([
+                        {
+                            ID: Date.now(),
+                            lastcrawldate: 0,
+                            name: 'In crawl queue',
+                            description: 'The site is in the crawl queue!',
+                            url: fullurl.toString()
+                        }
+                    ]);
+                });
 
                 await knex('sites')
                     .where('ID', siteID)
