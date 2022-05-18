@@ -35,6 +35,10 @@
         });
         if (s[0]) return console.log(`${url} already exists!`);
 
+        if (url.endsWith('zip') || url.endsWith('md5!') || url.endsWith('tar.gz') || url.endsWith('sha1!')) return console.log(
+    	    `URL is zip file`
+        );
+
         await knex('sites')
         .insert([
             {
