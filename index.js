@@ -40,8 +40,8 @@
     app.set('json spaces', 2);
 
     var c = new Crawler({
-        maxConnections : 1,
-        rateLimit: 2000,
+        maxConnections : 3,
+        rateLimit: 500,
         // This will be called for each crawled page
         callback : async function (error, res, done) {
             if(error){
@@ -127,11 +127,11 @@
 
         reso.page = page;
         reso.totalPages = count;
-        if (page == reso.totalPages) {
-            reso.nextPage = page;
+        if (parseInt(page) == reso.totalPages) {
+            reso.nextPage = parseInt(page);
             reso.hasNextPage = false;
         } else {
-            reso.nextPage = page + 1;
+            reso.nextPage = parseInt(page) + 1;
             reso.hasNextPage = true;
         }
 
