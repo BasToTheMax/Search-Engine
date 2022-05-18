@@ -48,6 +48,6 @@
         console.log(`added ${url}`);
     });
 
-    console.log('added to crawler queue!');
+    console.log('Adding...');
     // process.exit(0);
 })();
