@@ -45,7 +45,8 @@
         // This will be called for each crawled page
         callback : async function (error, res, done) {
             if(error){
-                console.log(error);
+                console.log('oh no an error', error);
+                done();
             }else{
                 var $ = res.$;
                 var siteID = res.options.siteID;
