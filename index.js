@@ -101,6 +101,8 @@
                             }
                         ]);
                         console.log(`added ${fullurl.toString()}!`);
+                    } else {
+                        console.log(`${fullurl.toString()} is already in the database`);
                     }
                 });
 
