@@ -86,15 +86,21 @@
                     // console.log(fullurl.toString());
                     // console.log($(link).attr('href'));
 
-                    await knex('sites').insert([
-                        {
-                            ID: Date.now(),
-                            lastcrawldate: 0,
-                            name: 'In crawl queue',
-                            description: 'The site is in the crawl queue!',
-                            url: fullurl.toString()
-                        }
-                    ]);
+                    var aaa = await knex('sites').where({
+                        url: fullurl.toString()
+                    });
+
+                    if (!aaa[0]) {
+                        await knex('sites').insert([
+                            {
+                                ID: Date.now(),
+                                lastcrawldate: 0,
+                                name: 'In crawl queue',
+                                description: 'The site is in the crawl queue!',
+                                url: fullurl.toString()
+                            }
+                        ]);
+                    }
                 });
 
                 await knex('sites')
