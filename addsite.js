@@ -30,6 +30,11 @@
     // var url = args[0];
 
     args.forEach(async (url) => {
+        var s = await knex('sites').where({
+            url: `https://${url}`
+        });
+        if (s[0]) return console.log(`${url} already exists!`);
+
         await knex('sites')
         .insert([
             {
@@ -40,6 +45,7 @@
                 lastcrawldate: 0
             }
         ]);
+        console.log(`added ${url}`);
     });
 
     console.log('added to crawler queue!');
