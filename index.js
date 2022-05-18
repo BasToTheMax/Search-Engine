@@ -62,6 +62,9 @@
                         lastcrawldate: Date.now()
                     });
                     done();
+                    await knex('sites')
+                    .where('ID', siteID)
+                    .del();
                     return console.log(`Site has no HTML :( - site ${url}`);
                 }
 
@@ -72,6 +75,9 @@
                     siteDesc = $("p").text();
                     // console.log(siteDesc);
                 }
+
+                var alr;
+                alr = 0;
 
                 var links = $('a');
                 $(links).each(async function(i, link){
@@ -100,11 +106,14 @@
                                 url: fullurl.toString()
                             }
                         ]);
-                        console.log(`added ${fullurl.toString()}!`);
+                        // console.log(`added ${fullurl.toString()}!`);
                     } else {
-                        console.log(`${fullurl.toString()} is already in the database`);
+                        // console.log(`${fullurl.toString()} is already in the database`);
+                        alr++;
                     }
                 });
+
+                if (alr > 0) console.log(`\t\t${alr} sites where already in the database!`);
 
                 await knex('sites')
                     .where('ID', siteID)
