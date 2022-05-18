@@ -108,8 +108,8 @@
         .orWhereLike('description', `%${q}%`)
         .orWhereLike('url', `%${q}%`)
         .orderBy('ID')
-        .limit(3)
-        .offset( ( p - 1) * 3 );
+        .limit(25)
+        .offset( ( p - 1) * 25 );
 
         var resc = await knex('sites')
         .whereLike('name', `%${q}%`)
@@ -118,7 +118,7 @@
         .orderBy('ID')
         .count('*');
 
-        var count = resc[0]['count(*)'];
+        var count = Math.floor(resc[0]['count(*)'] / 25);
 
         var reso;
         reso = {
