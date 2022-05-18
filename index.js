@@ -102,7 +102,7 @@
                 url: site['url']
             });
         }
-    }, 1000);
+    }, 2.5 * 1000);
 
     app.use(express.static(__dirname + '/public'));
 
