@@ -48,6 +48,7 @@
                 console.log(error);
             }else{
                 var $ = res.$;
+                if (!$) return console.log(`Site has no HTML :(`);
                 var siteID = res.options.siteID;
                 var url = res.options.url;
 
