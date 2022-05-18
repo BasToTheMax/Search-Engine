@@ -85,8 +85,13 @@
       r = `<br />We did not found any results for <b>${q.q}</b> :(<br>Please try to search in other search terms`;
     }
 
-    if (parseInt(q.page)-1 < datas.totalPages && (parseInt(q.page) < 1) == false) {
-        set2(`<a href="/search.html?q=${q.q}&page=${parseInt(q.page) - 1}">Previous</a> - `)
+    if (parseInt(q.page)-1 < datas.totalPages) {
+        var pa = parseInt(q.page);
+        if (pa < 2) {
+            set2(`<a style="color:gray;">Previous</a> - `);
+        } else {
+            set2(`<a href="/search.html?q=${q.q}&page=${parseInt(q.page) - 1}">Previous</a> - `);
+        }
     }
 
     if (datas.hasNextPage == true) {
