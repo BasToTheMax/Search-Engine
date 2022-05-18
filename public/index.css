@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: mediumaquamarine;
+}
+.second-body {
+    background: url(https://huicraft.nl/back.jpg) no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    min-height: 100vh;width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+.inner-wrapper {
+    width: 100%;
+    max-width: 500px;
+    height: 200px;
+    background: rgba(0,0,0,.5);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.title span {
+    font-size: 5vw;
+    font-family: sans-serif;
+    font-weight: 1000;
+    -webkit-text-stroke: 2px solid #fff;
+    color: transparent;
+    background-image: linear-gradient(
+        45deg,
+        limegreen,
+        rgb(110, 197, 171),
+        lightblue
+    );
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+}
+.search-bar {
+    width: 100%;
+    height: 10%;
+    text-align: center;
+}
+.searchB {
+    width: 50%;
+    height: 100%;
+    padding: 8px;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    transition: 0.3s;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+.searchB:focus {
+    width: 60%;
+    box-shadow: 0px 0px 0px 5px lightblue;
+}
+.src-btn {
+    width: 10%;
+    height: 100%;
+    padding: 6px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    background: #fff;
+    transition: 0.3s;
+}
+.src-btn:focus {
+    box-shadow: 0px 0px 0px 5px lightblue;
+}
