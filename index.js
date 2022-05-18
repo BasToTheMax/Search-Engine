@@ -86,7 +86,13 @@
         }
     });
 
-    setInterval(async () => {
+    c.on('drain',function(){
+        reqNeqSite();
+    });
+
+    reqNeqSite();
+
+    async function reqNeqSite() {
         var leastCrawledSite = await knex('sites')
         .orderBy('lastcrawldate')
         .limit(1);
@@ -101,8 +107,14 @@
                 siteID: site['ID'],
                 url: site['url']
             });
+
+            await knex('sites')
+                .where('ID', site['ID'])
+                .update({
+                    lastcrawldate: Date.now()
+                });
         }
-    }, 2.5 * 1000);
+    }
 
     app.use(express.static(__dirname + '/public'));
 
