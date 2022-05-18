@@ -75,8 +75,8 @@
                 await knex('sites')
                     .where('ID', siteID)
                     .update({
-                        name: siteTitle,
-                        description: siteDesc,
+                        name: siteTitle.substring(0, 25),
+                        description: siteDesc.substring(0, 150),
                         lastcrawldate: Date.now()
                     });
                 
@@ -131,7 +131,7 @@
         .orderBy('ID')
         .count('*');
 
-        var count = Math.floor(resc[0]['count(*)'] / 25);
+        var count = Math.ceil(resc[0]['count(*)'] / 25);
 
         var reso;
         reso = {
@@ -140,6 +140,7 @@
 
         reso.page = page;
         reso.totalPages = count;
+        reso.totalRes = resc[0]['count(*)'];
         if (parseInt(page) == reso.totalPages) {
             reso.nextPage = parseInt(page);
             reso.hasNextPage = false;

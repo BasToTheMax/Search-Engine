@@ -10,5 +10,5 @@ srcBtn.addEventListener('click', (e) => {
     }
 })
 function search(val) {
-    window.open(`/search.html?q=${val}&page=1`);
+    document.location.href = `/search.html?q=${val}&page=1`;
 }

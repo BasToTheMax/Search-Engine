@@ -34,10 +34,12 @@
     <div class="container">
       <br><br>
         <div class="row center">
-          <input value="a" onchange="document.location='/search.html?q=' + this.value;" onchanges="document.getElementById('cl').href='/search.html?q=' + this.value" class="input">
+          <input id="sa" onchange="document.location='/search.html?q=' + this.value;" onchanges="document.getElementById('cl').href='/search.html?q=' + this.value" class="input">
           <a id="cl" class="btn-large waves-effect waves-light blue">Search</a>
         </div>
         <div id="data">Loading...</div>
+
+        <div id="pages"></div>
       <br><br>
 
     </div>
@@ -55,15 +57,22 @@
 })(jQuery); // end of jQuery name sp
 
   async function search() {
-    var datas = await fetch('/api/search?q=' + encodeURI(`a`)).then(e => e.json());
+    var urlSearchParams = new URLSearchParams(window.location.search);
+    var q = Object.fromEntries(urlSearchParams.entries());
+
+    if (!q.page) q.page = 1;
+
+    var datas = await fetch('/api/search?q=' + encodeURI(q.q) + '&page=' + q.page).then(e => e.json());
     // console.log(datas);
+
+    document.getElementById('sa').value = q.q;
 
     var r;
     r = '';
 
-    if (datas.length > 0) {
+    if (datas.data.length > 0) {
 
-    datas.forEach((site) => {
+    datas.data.forEach((site) => {
     var i;
     // if (site.image) {
     i = ``;
@@ -73,16 +82,29 @@
       r += `<a style="color:black;" target="_blank" href="${site.url}"><h4>${site.name}</h4><span style="color:blue;">${site.url}</span></a><br>${i}<br>${site.description}<hr />`;
     });
     } else {
-      r = `<br />We did not found any results for <b>a</b> :(<br>Please try to search in other search terms`;
+      r = `<br />We did not found any results for <b>${q.q}</b> :(<br>Please try to search in other search terms`;
     }
 
-    set(`Found <b>${datas.length}</b> results for <b>a</b>:<br />${r}`);
+    if (parseInt(q.page)-1 < datas.totalPages && (parseInt(q.page) < 1) == false) {
+        set2(`<a href="/search.html?q=${q.q}&page=${parseInt(q.page) - 1}">Previous</a> - `)
+    }
+
+    if (datas.hasNextPage == true) {
+        console.log('next page');
+        set2(`<a href="/search.html?q=${q.q}&page=${datas.nextPage}">Next</a>`)
+    } else {
+        set2(`<a style="color:gray;">Next</a>`)
+    }
+
+    set(`Found <b>${datas.totalRes}</b> results for <b>${q.q}</b>:<br />${r}`);
   };
 
   function set(msg) {
     document.getElementById('data').innerHTML = msg;
   } 
-
+  function set2(msg) {
+    document.getElementById('pages').innerHTML += msg;
+  } 
   search();
 </script>
 </body>
