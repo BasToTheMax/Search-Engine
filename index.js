@@ -48,9 +48,19 @@
                 console.log(error);
             }else{
                 var $ = res.$;
-                if (!$) return console.log(`Site has no HTML :(`);
                 var siteID = res.options.siteID;
                 var url = res.options.url;
+
+                if (!$) {
+                    await knex('sites')
+                    .where('ID', siteID)
+                    .update({
+                        name: url,
+                        description: 'No information available',
+                        lastcrawldate: Date.now()
+                    });
+                    return console.log(`Site has no HTML :( - site ${url}`);
+                }
 
                 var siteTitle = $("title").text();
                 var siteDesc = $("meta[name=description]").attr('content');
