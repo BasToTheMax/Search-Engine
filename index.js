@@ -41,8 +41,8 @@
     app.set('json spaces', 2);
 
     var c = new Crawler({
-        maxConnections : 3,
-        rateLimit: 500,
+        maxConnections : 1,
+        rateLimit: 2.5 * 1000,
         // This will be called for each crawled page
         callback : async function (error, res, done) {
             if(error){
@@ -100,6 +100,7 @@
                                 url: fullurl.toString()
                             }
                         ]);
+                        console.log(`added ${fullurl.toString()}!`);
                     }
                 });
 
