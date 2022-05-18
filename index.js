@@ -77,7 +77,9 @@
                 }
 
                 var alr;
+                var neq;
                 alr = 0;
+                neq = 0;
 
                 var links = $('a');
                 $(links).each(async function(i, link){
@@ -106,7 +108,8 @@
                                 url: fullurl.toString()
                             }
                         ]);
-                        // console.log(`added ${fullurl.toString()}!`);
+                        neq++;
+                        // console.log(`\tQueue: ${fullurl.toString()}`);
                     } else {
                         // console.log(`${fullurl.toString()} is already in the database`);
                         alr++;
@@ -114,6 +117,7 @@
                 });
 
                 if (alr > 0) console.log(`\t\t${alr} sites where already in the database!`);
+                if (neq > 0) console.log(`\t\tAdded ${neq} new sites to the queue!`);
 
                 await knex('sites')
                     .where('ID', siteID)

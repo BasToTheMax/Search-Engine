@@ -39,6 +39,7 @@
         </div>
         <div id="data">Loading...</div>
 
+        <div id="pageid"></div>
         <div id="pages"></div>
       <br><br>
 
@@ -102,6 +103,7 @@
     }
 
     set(`Found <b>${datas.totalRes}</b> results for <b>${q.q}</b>:<br />${r}`);
+    set3(`Page <b>${datas.page}</b> / <b>${datas.totalPages}</b>`);
   };
 
   function set(msg) {
@@ -109,6 +111,9 @@
   } 
   function set2(msg) {
     document.getElementById('pages').innerHTML += msg;
+  } 
+  function set3(msg) {
+    document.getElementById('pageid').innerHTML = msg;
   } 
   search();
 </script>
