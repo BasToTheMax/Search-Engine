@@ -33,6 +33,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-radius: 20px;
 }
 .title span {
     font-size: 5vw;
