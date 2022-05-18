@@ -59,6 +59,7 @@
                         description: 'No information available',
                         lastcrawldate: Date.now()
                     });
+                    done();
                     return console.log(`Site has no HTML :( - site ${url}`);
                 }
 
