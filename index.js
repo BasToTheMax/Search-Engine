@@ -37,6 +37,8 @@
     });
     const app = express();
 
+    app.set('json spaces', 2);
+
     var c = new Crawler({
         maxConnections : 10,
         // This will be called for each crawled page
