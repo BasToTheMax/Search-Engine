@@ -135,6 +135,9 @@
                 siteTitle = siteTitle.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
                 siteDesc = siteDesc.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
 
+                siteTitle = Buffer.from(siteTitle, 'utf-8').toString();
+                siteDesc = Buffer.from(siteDesc, 'utf-8').toString();
+
                 await knex('sites')
                     .where('ID', siteID)
                     .update({
