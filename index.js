@@ -41,7 +41,9 @@
         var a;
         a = '';
 
-        if (req.path == '/search.html') {
+        if (req.path == '/search.html') return next();
+
+        if (req.path == '/api/search') {
             a = `- ${chalk.green(req.query.q)} (${chalk.yellow(req.query.page)})`;
         }
         
