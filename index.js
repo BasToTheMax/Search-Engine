@@ -110,7 +110,7 @@
                             }
                         ]);
                         neq++;
-                        // console.log(`\tQueue: ${fullurl.toString()}`);
+                        console.log(`\tQueue: ${fullurl.toString()}`);
                     } else {
                         // console.log(`${fullurl.toString()} is already in the database`);
                         alr++;
@@ -139,7 +139,7 @@
         // reqNeqSite();
     });
 
-    if (!process.env['PORT']) {
+    if (!process.env['PORT'] && prompt('> ') == 'crawl') {
         reqNeqSite();
     }
 
@@ -183,7 +183,7 @@
         .whereLike('name', `%${q}%`)
         .orWhereLike('description', `%${q}%`)
         .orWhereLike('url', `%${q}%`)
-        .orderBy('ID')
+        .orderBy('clicks', 'desc')
         .limit(10)
         .offset( ( p - 1) * 10 );
 
@@ -191,7 +191,7 @@
         .whereLike('name', `%${q}%`)
         .orWhereLike('description', `%${q}%`)
         .orWhereLike('url', `%${q}%`)
-        .orderBy('ID')
+        .orderBy('clicks', 'desc')
         .count('*');
 
         var count = Math.ceil(resc[0]['count(*)'] / 10);
@@ -213,6 +213,24 @@
         }
 
         res.json(reso);
+    });
+
+    app.get(`/click/:id`, async (req, res) => {
+        var id = req.params.id;
+
+        var site = await knex('sites').where({
+            ID: id
+        });
+
+        await knex('sites').where({
+            ID: id
+        }).update({
+            clicks: site[0].clicks + 1
+        });
+
+        if (!site[0]) return res.redirect('/');
+
+        res.redirect(site[0]['url']);
     });
 
     app.listen(3003, () => {
