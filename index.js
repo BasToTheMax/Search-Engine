@@ -112,7 +112,7 @@
                     if (!aaa[0]) {
                         await knex('sites').insert([
                             {
-                                ID: Date.now(),
+                                ID: parseInt(Date.now() + '' + i),
                                 lastcrawldate: 0,
                                 name: 'In crawl queue',
                                 description: 'The site is in the crawl queue!',
@@ -129,6 +129,9 @@
 
                 if (alr > 0) console.log(`\t\t${alr} sites where already in the database!`);
                 if (neq > 0) console.log(`\t\tAdded ${neq} new sites to the queue!`);
+
+                siteTitle = siteTitle.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
+                siteDesc = siteDesc.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
 
                 await knex('sites')
                     .where('ID', siteID)
