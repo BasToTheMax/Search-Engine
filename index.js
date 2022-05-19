@@ -126,7 +126,7 @@
                         neq = neq + 1;
                         console.log(`\tQueue: ${fullurl.toString()}`);
                     } else {
-                        console.log(`\t${fullurl.toString()} is already in the database`);
+                        // console.log(`\t${fullurl.toString()} is already in the database`);
                         alr++;
                     }
                 });
