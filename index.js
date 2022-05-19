@@ -150,7 +150,7 @@
     });
 
     console.log('Crawling? (yes / no)');
-    if (prompt('> ') == 'yes') {
+    if (config.crawl == 'yes') {
         reqNeqSite();
     }
 
