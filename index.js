@@ -139,7 +139,8 @@
         // reqNeqSite();
     });
 
-    if (!process.env['PORT'] && prompt('> ') == 'crawl') {
+    console.log('Crawling? (yes / no)');
+    if (prompt('> ') == 'yes') {
         reqNeqSite();
     }
 
