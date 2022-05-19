@@ -66,6 +66,11 @@
                 var siteID = res.options.siteID;
                 var url = res.options.url;
 
+                var alr;
+                var neq;
+                alr = 0;
+                neq = 0;
+
                 if (!$) {
                     await knex('sites')
                     .where('ID', siteID)
@@ -89,10 +94,7 @@
                     // console.log(siteDesc);
                 }
 
-                var alr;
-                var neq;
-                alr = 0;
-                neq = 0;
+                
 
                 var links = $('a');
                 $(links).each(async function(i, link){
@@ -124,13 +126,12 @@
                         neq = neq + 1;
                         console.log(`\tQueue: ${fullurl.toString()}`);
                     } else {
-                        // console.log(`${fullurl.toString()} is already in the database`);
+                        console.log(`\t${fullurl.toString()} is already in the database`);
                         alr++;
                     }
                 });
 
-                if (alr > 0) console.log(`\t\t${alr} sites where already in the database!`);
-
+                console.log(`\t\t${alr} sites where already in the database!`);
                 console.log(`\t\tAdded ${neq} new sites to the queue!`);
 
                 siteTitle = siteTitle.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
