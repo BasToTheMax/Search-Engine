@@ -34,7 +34,7 @@
     <div class="container">
       <br><br>
         <div class="row center">
-          <input id="sa" onchange="document.location='/search.html?q=' + this.value;" onchanges="document.getElementById('cl').href='/search.html?q=' + this.value" class="input">
+          <input id="sa" onchange="document.location='/search.html?q=' + this.value + '&page=1';" onchanges="document.getElementById('cl').href='/search.html?q=' + this.value + '&page=1';" class="input">
           <a id="cl" class="btn-large waves-effect waves-light blue">Search</a>
         </div>
         <div id="data">Loading...</div>
