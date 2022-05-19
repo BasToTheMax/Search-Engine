@@ -102,8 +102,4 @@ dist
 
 # TernJS port file
 .tern-port
-data.db-journal
-data.db
-data.db
-*.db
 config.json
