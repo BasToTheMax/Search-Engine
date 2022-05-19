@@ -39,6 +39,10 @@
     console.log(`Total sites: ${ac[0]['count(*)']}`);
     console.log(`Total crawled sites: ${ac[0]['count(*)'] - qc[0]['count(*)']}`);
 
+    var cc = ac[0]['count(*)'] - qc[0]['count(*)'];
+
+    console.log(`crawled percent: ${Math.round(cc / ac[0]['count(*)'] * 100)}%`);
+
     process.exit();
 
 })();
