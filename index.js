@@ -121,8 +121,8 @@
                                 url: fullurl.toString()
                             }
                         ]);
-                        neq++;
-                        console.log(`\tQueue: ${fullurl.toString()}`);
+                        neq = neq + 1;
+                        // console.log(`\tQueue: ${fullurl.toString()}`);
                     } else {
                         // console.log(`${fullurl.toString()} is already in the database`);
                         alr++;
@@ -130,6 +130,7 @@
                 });
 
                 if (alr > 0) console.log(`\t\t${alr} sites where already in the database!`);
+
                 if (neq > 0) console.log(`\t\tAdded ${neq} new sites to the queue!`);
 
                 siteTitle = siteTitle.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
