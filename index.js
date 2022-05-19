@@ -5,6 +5,7 @@
     const url = require('url');
 
     var Crawler = require("crawler");
+    const prompt = require('prompt-sync')();
  
 // Queue just one URL, with default callback
 // c.queue('http://www.amazon.com');
@@ -134,7 +135,8 @@
     });
 
     c.on('drain',function(){
-        reqNeqSite();
+        setTimeout(reqNeqSite, 0.5 * 1000);
+        // reqNeqSite();
     });
 
     reqNeqSite();
@@ -213,5 +215,15 @@
 
     app.listen(3000, () => {
         console.log(`App online`);
+        // ask();
     });
+    function ask() {
+        var res = prompt('> ');
+        if (res == 'exit') {
+            process.exit();
+        }
+
+        ask();
+    }
+    // ask();
 })();
