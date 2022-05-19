@@ -45,7 +45,7 @@
             a = `- ${chalk.green(req.query.q)} (${chalk.yellow(req.query.page)})`;
         }
         
-        console.log(`${chalk.blue(req.method)} ${chalk.red(chalk.path)} ${a}`);
+        console.log(`${chalk.blue(req.method)} ${chalk.red(req.path)} ${a}`);
         next();
     });
 
