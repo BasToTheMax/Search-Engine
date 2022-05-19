@@ -139,7 +139,9 @@
         // reqNeqSite();
     });
 
-    reqNeqSite();
+    if (!process.env['PORT']) {
+        reqNeqSite();
+    }
 
     async function reqNeqSite() {
         var leastCrawledSite = await knex('sites')
@@ -213,7 +215,7 @@
         res.json(reso);
     });
 
-    app.listen(3000, () => {
+    app.listen(3003, () => {
         console.log(`App online`);
         // ask();
     });
