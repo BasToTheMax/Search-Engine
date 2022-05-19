@@ -106,3 +106,4 @@ data.db-journal
 data.db
 data.db
 *.db
+config.json
