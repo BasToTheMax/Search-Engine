@@ -1,10 +1,8 @@
 (async () => {
     const config = require('./config.json');
     const knex = require('knex')({
-        client: 'better-sqlite3',
-        connection: {
-        filename: __dirname + '/' + config.database
-        },
+        client: 'mysql',
+        connection: config.database,
         useNullAsDefault: true,
         migrations: {
             tableName: 'migrations'

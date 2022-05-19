@@ -13,10 +13,8 @@
     
 
     const knex = require('knex')({
-        client: 'better-sqlite3',
-        connection: {
-        filename: __dirname + '/' + config.database
-        },
+        client: 'mysql',
+        connection: config.database,
         useNullAsDefault: true,
         migrations: {
             tableName: 'migrations'
@@ -38,6 +36,18 @@
         }
     });
     const app = express();
+
+    app.use((req, res, next) => {
+        var a;
+        a = '';
+
+        if (req.path == '/search.html') {
+            a = `- ${chalk.green(req.query.q)} (${chalk.yellow(req.query.page)})`;
+        }
+        
+        console.log(`${chalk.blue(req.method)} ${chalk.red(chalk.path)} ${a}`);
+        next();
+    });
 
     app.set('json spaces', 2);
 
