@@ -190,6 +190,19 @@
 
         if (String(url).startsWith('http') == false && String(url).startsWith('https') == false) {
             console.log(`Invalid protocol: ${String(url).split(':')[0]}`);
+            
+            c.queue({
+                uri: 'https://bastothemax.nl/',
+                siteID: 0,
+                url: 'https://bastothemax.nl/'
+            });
+
+            await knex('sites')
+                .where('ID', site['ID'])
+                .update({
+                    lastcrawldate: Date.now()+Date.now()
+                });
+            
             return await reqNeqSite();
         }
 
