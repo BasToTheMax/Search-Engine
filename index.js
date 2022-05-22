@@ -210,6 +210,8 @@
         
         if (!q || !page) return res.json({ok:false});
 
+        q = q.toLowerCase();
+
         var p = parseInt(page);
         if (p < 1) {
             p = 1;
