@@ -49,6 +49,8 @@
 
         if (req.path == '/api/search') {
             a = `- ${chalk.green(req.query.q)} (${chalk.yellow(req.query.page)})`;
+        } else {
+            a = `${needToQue.length} sites in queue`;
         }
         
         console.log(`${chalk.blue(req.method)} ${chalk.red(req.path)} ${a}`);
@@ -113,7 +115,13 @@
                     // console.log(fullurl.toString());
                     // console.log($(link).attr('href'));
 
-                    needToQue.push(fullurl.toString())
+                    if (needToQue.length < 1000) {
+                        needToQue.push(fullurl.toString());
+                    } else {
+                        needToQue.shift();
+                        needToQue.push(fullurl.toString());
+                        // console.log(chalk.red('Queue size too large!'));
+                    }
                 });
 
                 // console.log(`\t\t${alr} sites where already in the database!`);
@@ -175,7 +183,7 @@
         }
 
         needToQue.shift();
-    }, 1.5 * 1000);
+    }, 0.5 * 1000);
 
     async function reqNeqSite() {
         var leastCrawledSite = await knex('sites')
@@ -187,7 +195,21 @@
         var url = site['url'];
 
         if (String(url).startsWith('http') == false && String(url).startsWith('https') == false) {
-            return console.log(`Invalid protocol: ${String(url).split(':')[0]}`);
+            console.log(`Invalid protocol: ${String(url).split(':')[0]}`);
+            
+            c.queue({
+                uri: 'https://bastothemax.nl/',
+                siteID: 0,
+                url: 'https://bastothemax.nl/'
+            });
+
+            await knex('sites')
+                .where('ID', site['ID'])
+                .update({
+                    lastcrawldate: Date.now()+Date.now()
+                });
+            
+            return await reqNeqSite();
         }
 
         if ((Date.now() - lastcd) > 30 * 1000) {
