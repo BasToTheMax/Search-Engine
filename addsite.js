@@ -44,7 +44,7 @@
                 name: url,
                 url: `https://${url}`,
                 description: url,
-                lastcrawldate: 0
+                lastcrawldate: parseInt(String('-' + Date.now()))
             }
         ]);
         console.log(`added ${url}`);
