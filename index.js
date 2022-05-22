@@ -118,7 +118,9 @@
                     if (needToQue.length < 1000) {
                         needToQue.push(fullurl.toString());
                     } else {
-                        console.log(chalk.red('Queue size too large!'));
+                        needToQue.shift();
+                        needToQue.push(fullurl.toString());
+                        // console.log(chalk.red('Queue size too large!'));
                     }
                 });
 
