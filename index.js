@@ -115,7 +115,11 @@
                     // console.log(fullurl.toString());
                     // console.log($(link).attr('href'));
 
-                    needToQue.push(fullurl.toString())
+                    if (needToQue.length < 1000) {
+                        needToQue.push(fullurl.toString());
+                    } else {
+                        console.log(chalk.red('Queue size too large!'));
+                    }
                 });
 
                 // console.log(`\t\t${alr} sites where already in the database!`);
