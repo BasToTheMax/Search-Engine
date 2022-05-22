@@ -49,6 +49,8 @@
 
         if (req.path == '/api/search') {
             a = `- ${chalk.green(req.query.q)} (${chalk.yellow(req.query.page)})`;
+        } else {
+            a = `${needToQue.length} sites in queue`;
         }
         
         console.log(`${chalk.blue(req.method)} ${chalk.red(req.path)} ${a}`);
