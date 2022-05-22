@@ -31,7 +31,20 @@
         var s = await knex('sites').where({
             url: `https://${url}`
         });
-        if (s[0]) return console.log(`${url} already exists!`);
+        if (s[0]) {
+
+            await knex('sites')
+            .where({
+                url: `https://${url}`
+            })
+                .update(
+                    {
+                        lastcrawldate: parseInt(String('-' + Date.now()))
+                    }
+                );
+
+            return console.log(`${url} already exists!`);
+        }
 
         if (url.endsWith('zip') || url.endsWith('md5!') || url.endsWith('tar.gz') || url.endsWith('sha1!')) return console.log(
     	    `URL is zip file`
