@@ -9,6 +9,10 @@
  
 // Queue just one URL, with default callback
 // c.queue('http://www.amazon.com');
+
+
+    var needToQue;
+    needToQue = [];
  
     
 
@@ -109,30 +113,11 @@
                     // console.log(fullurl.toString());
                     // console.log($(link).attr('href'));
 
-                    var aaa = await knex('sites').where({
-                        url: fullurl.toString()
-                    });
-
-                    if (!aaa[0]) {
-                        await knex('sites').insert([
-                            {
-                                ID: parseInt(Date.now() + '' + i),
-                                lastcrawldate: 0,
-                                name: 'In crawl queue',
-                                description: 'The site is in the crawl queue!',
-                                url: fullurl.toString()
-                            }
-                        ]);
-                        neq = neq + 1;
-                        console.log(`\tQueue: ${fullurl.toString()}`);
-                    } else {
-                        // console.log(`\t${fullurl.toString()} is already in the database`);
-                        alr++;
-                    }
+                    needToQue.push(fullurl.toString())
                 });
 
-                console.log(`\t\t${alr} sites where already in the database!`);
-                console.log(`\t\tAdded ${neq} new sites to the queue!`);
+                // console.log(`\t\t${alr} sites where already in the database!`);
+                // console.log(`\t\tAdded ${neq} new sites to the queue!`);
 
                 siteTitle = siteTitle.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
                 siteDesc = siteDesc.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
@@ -163,6 +148,33 @@
     if (config.crawl == 'yes') {
         reqNeqSite();
     }
+
+    setInterval(async () => {
+        var a = needToQue[0];
+
+        if (!a) return;
+
+        var aaa = await knex('sites').where({
+            url: a
+        });
+
+        if (!aaa[0]) {
+            needToQue.push(a)
+            console.log(chalk.green(`Queue: ${a}`));
+        }
+
+        await knex('sites').insert([
+            {
+                ID: parseInt(Date.now()),
+                lastcrawldate: 0,
+                name: 'In crawl queue',
+                description: 'The site is in the crawl queue!',
+                url: a
+            }
+        ]);
+
+        needToQue.shift();
+    }, 500);
 
     async function reqNeqSite() {
         var leastCrawledSite = await knex('sites')
