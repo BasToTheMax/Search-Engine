@@ -208,7 +208,7 @@
     app.use(express.static(__dirname + '/public'));
 
     app.get('/api/search', async (req, res) => {
-        const { q, page } = req.query;
+        var { q, page } = req.query;
         
         if (!q || !page) return res.json({ok:false});
 
