@@ -177,7 +177,7 @@
         }
 
         needToQue.shift();
-    }, 1.5 * 1000);
+    }, 0.5 * 1000);
 
     async function reqNeqSite() {
         var leastCrawledSite = await knex('sites')
