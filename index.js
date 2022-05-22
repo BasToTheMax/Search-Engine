@@ -133,7 +133,7 @@
                         lastcrawldate: Date.now()
                     });
                 
-                console.log(`Crawled site: ${url} (${siteID})`);
+                console.log(chalk.yellow(`Crawled site: ${url} (${siteID})`));
             }
             done();
         }
@@ -184,6 +184,10 @@
         var site = leastCrawledSite[0];
         var lastcd = site['lastcrawldate'];
         var url = site['url'];
+
+        if (String(url).startsWith('http') == false && String(url).startsWith('https') == false) {
+            return console.log(`Invalid protocol: ${String(url).split(':')[0]}`);
+        }
 
         if ((Date.now() - lastcd) > 30 * 1000) {
             c.queue({
