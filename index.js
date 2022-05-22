@@ -189,7 +189,8 @@
         var url = site['url'];
 
         if (String(url).startsWith('http') == false && String(url).startsWith('https') == false) {
-            return console.log(`Invalid protocol: ${String(url).split(':')[0]}`);
+            console.log(`Invalid protocol: ${String(url).split(':')[0]}`);
+            return await reqNeqSite();
         }
 
         if ((Date.now() - lastcd) > 30 * 1000) {
