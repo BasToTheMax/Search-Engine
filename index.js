@@ -159,19 +159,18 @@
         });
 
         if (!aaa[0]) {
-            needToQue.push(a)
             console.log(chalk.green(`Queue: ${a}`));
-        }
 
-        await knex('sites').insert([
-            {
-                ID: parseInt(Date.now()),
-                lastcrawldate: 0,
-                name: 'In crawl queue',
-                description: 'The site is in the crawl queue!',
-                url: a
-            }
-        ]);
+            await knex('sites').insert([
+                {
+                    ID: parseInt(Date.now()),
+                    lastcrawldate: 0,
+                    name: 'In crawl queue',
+                    description: 'The site is in the crawl queue!',
+                    url: a
+                }
+            ]);
+        }
 
         needToQue.shift();
     }, 500);
