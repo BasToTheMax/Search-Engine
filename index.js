@@ -170,6 +170,8 @@
                     url: a
                 }
             ]);
+        } else {
+            // console.log(chalk.green(`Already: ${a}`));
         }
 
         needToQue.shift();
