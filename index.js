@@ -148,7 +148,7 @@
     });
 
     c.on('drain',function(){
-        setTimeout(reqNeqSite, 0.5 * 1000);
+        setTimeout(reqNeqSite, 1.5 * 1000);
         // reqNeqSite();
     });
 
@@ -183,7 +183,7 @@
         }
 
         needToQue.shift();
-    }, 0.5 * 1000);
+    }, 2.5 * 1000);
 
     async function reqNeqSite() {
         var leastCrawledSite = await knex('sites')
